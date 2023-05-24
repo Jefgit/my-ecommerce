@@ -11,7 +11,7 @@ export default function CheckoutPage(){
     const [email, setEmail] = useState('')
     useEffect(() => {
         const uniqIds = [...new Set(selectedProducts)]
-        fetch('https://my-ecommerce-smoky.vercel.app/api/products?ids='+uniqIds.join(','))
+        fetch('https://https:/my-ecommerce-pi.vercel.app/api/products?ids='+uniqIds.join(','))
             .then(response => response.json())
             .then(json => setProductsInfos(json));
     }, [selectedProducts])
