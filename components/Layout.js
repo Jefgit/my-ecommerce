@@ -19,7 +19,6 @@ export default function Layout({children}){
                     <div className="mb-5 bg-green-400 text-white text-lg p-5 rounded-xl">
                       Thanks for your order!  
                     </div>
-
                 )}
             </div>
             <div className="p-5">

@@ -9,7 +9,7 @@ export async function findAllProducts(){
 export default async function handle(req,res){
     await initMongoose();
     const {ids} = req.query;
-    console.log(ids)
+    // console.log(ids)
     if(ids){
         const idsArray = ids.split(',');
 

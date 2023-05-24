@@ -5,7 +5,6 @@ import Product from "@/models/Product";
 
 export default async function handler(req,res) {
     await initMongoose();
-    console.log(res)
 
     if(req.method !== 'POST'){
         res.status(405).end('Method Not Allowed');
