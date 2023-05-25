@@ -1,5 +1,6 @@
 import { useContext } from "react"
 import { ProductsContext } from "./ProductsContext"
+import Image from "next/image";
 
 export default function Product({_id, name, price, description, picture}){
     const {setSelectedProducts} = useContext(ProductsContext);
@@ -9,7 +10,7 @@ export default function Product({_id, name, price, description, picture}){
     return(
         <div className="w-64">
           <figure className="bg-blue-100 p-5 rounded-xl">
-            <img src={picture} alt={name}/>
+            <Image src={picture} alt={name} width={250} height={250} sizes="(max-width:200rem) 5vw" />
           </figure>
           <section className="mt-2">
             <h3 className="font-bold text-lg">{name}</h3>

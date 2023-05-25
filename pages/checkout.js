@@ -1,6 +1,7 @@
 import Layout from "@/components/Layout";
 import { ProductsContext } from "@/components/ProductsContext";
 import { useContext, useEffect, useState } from "react";
+import Image from "next/image";
 
 export default function CheckoutPage(){
     const {selectedProducts, setSelectedProducts} = useContext(ProductsContext);
@@ -54,7 +55,7 @@ export default function CheckoutPage(){
                 return(
                 <div className="flex mb-5" key={productInfo._id}>
                     <div className="bg-gray-100 p-3 rounded-xl shrink-0">
-                        <img className="w-24" src={productInfo.picture} alt=""></img>
+                        <Image className="w-24" src={productInfo.picture} alt="" width={100} height={100} />
                     </div>
                     <div className="pl-4">
                         <h3 className="font-bold text-lg">{productInfo.name}</h3>
