@@ -44,12 +44,12 @@ export default function Home({products}) {
   )
 }
 
-// export async function getServerSideProps(){
-//   await initMongoose();
-//   const products = await findAllProducts();
-//   return{
-//     props: {
-//       products:JSON.parse(JSON.stringify(products)),
-//     },
-//   }
-// }
+export async function getServerSideProps(){
+  await initMongoose();
+  const products = await findAllProducts();
+  return{
+    props: {
+      products:JSON.parse(JSON.stringify(products)),
+    },
+  }
+}
