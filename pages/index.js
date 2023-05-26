@@ -46,6 +46,7 @@ export default function Home({products}) {
 
 export async function getServerSideProps(){
   await initMongoose();
+  console.time();
   const products = await findAllProducts();
   return{
     props: {

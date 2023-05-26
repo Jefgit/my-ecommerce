@@ -12,10 +12,10 @@ export default function CheckoutPage(){
     const [email, setEmail] = useState('')
     useEffect(() => {
         const uniqIds = [...new Set(selectedProducts)]
-        // fetch('/api/products?ids='+uniqIds.join(','))
-        //     .then(response => response.json())
-        //     .then(json => setProductsInfos(json));
-        //     console.log("product changed!")
+        fetch('/api/products?ids='+uniqIds.join(','))
+            .then(response => response.json())
+            .then(json => setProductsInfos(json));
+            console.log("product changed!")
     }, [selectedProducts])
     // console.log(productsInfos)
     function addItem(id){
