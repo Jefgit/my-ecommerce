@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import Footer from "./Footer";
 import { ProductsContext } from "./ProductsContext";
+import Header from "./Header";
 
 export default function Layout({children}){
     const {setSelectedProducts} = useContext(ProductsContext)
@@ -13,6 +14,7 @@ export default function Layout({children}){
     }, [])
     return(
         <div>
+            <Header />
             <div className="p-5">
                 {success && 
                 (
