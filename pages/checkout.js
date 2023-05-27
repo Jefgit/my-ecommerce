@@ -12,7 +12,7 @@ export default function CheckoutPage(){
     const [email, setEmail] = useState('')
     useEffect(() => {
         const uniqIds = [...new Set(selectedProducts)]
-        fetch('/api/products?ids='+uniqIds.join(','))
+        fetch('https://my-ecommerce-3vfps61k9-jefgit.vercel.app/api/products?ids='+uniqIds.join(','))
             .then(response => response.json())
             .then(json => setProductsInfos(json));
             console.log("product changed!")

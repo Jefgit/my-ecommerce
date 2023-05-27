@@ -9,7 +9,7 @@ export default function Home() {
   const [phrase, setPhrase] = useState('')
   const categoriesNames = [...new Set(productsInfo.map(p => p.category))];
   useEffect(() => {
-    fetch('/api/products')
+    fetch('https://my-ecommerce-3vfps61k9-jefgit.vercel.app/api/products')
     .then(response => response.json())
     .then(json => setProductsInfo(json))
   }, []);
