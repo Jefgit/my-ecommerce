@@ -1,18 +1,28 @@
 import Product from "@/components/product";
-import { initMongoose } from "@/lib/mongoose";
-import { useState } from "react"
-import { findAllProducts } from "./api/products";
+// import { initMongoose } from "@/lib/mongoose";
+import { useEffect, useState } from "react"
+// import { findAllProducts } from "./api/products";
 import Layout from "@/components/Layout";
 
-export default function Home({products}) {
-  // const [productsInfo, setProductsInfo] = useState([]);
+export default function Home() {
+  const [productsInfo, setProductsInfo] = useState([]);
   const [phrase, setPhrase] = useState('')
+  const categoriesNames = [...new Set(productsInfo.map(p => p.category))];
+  useEffect(() => {
+    fetch('/api/products')
+    .then(response => response.json())
+    .then(json => setProductsInfo(json))
+  }, []);
 
-  const categoriesNames = [...new Set(products?.map(p => p.category))]
-  
+  console.log(productsInfo)
+
+  let products;
   if(phrase){
-    products = products.filter(p => p.name.toLowerCase().includes(phrase));
-  } 
+    products =  productsInfo.filter(p => p.name.toLowerCase().includes(phrase));
+  } else {
+    products = productsInfo;
+  }
+
   return (
    <Layout>
       <input 
@@ -44,12 +54,12 @@ export default function Home({products}) {
   )
 }
 
-export async function getServerSideProps(){
-  await initMongoose();
-  const products = await findAllProducts();
-  return{
-    props: {
-      products:JSON.parse(JSON.stringify(products)),
-    },
-  }
-}
+// export async function getServerSideProps(){
+//   await initMongoose();
+//   const products = await findAllProducts();
+//   return{
+//     props: {
+//       products:JSON.parse(JSON.stringify(products)),
+//     },
+//   }
+// }
