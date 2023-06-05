@@ -46,8 +46,8 @@ export default function CheckoutPage(){
 
     return(
         <Layout>
-            {!productsInfos.length && (
-                <div>no products in your shopping cart</div>
+            {subtotal === 0 && (
+                <div>No products in your shopping cart.</div>
             )}
             
             {productsInfos.length && productsInfos.map(productInfo => {
@@ -81,7 +81,7 @@ export default function CheckoutPage(){
                     </div>
                 </div>
             )})}
-            <form action="/api/checkout" method="POST">
+            {subtotal != 0 && (<form action="/api/checkout" method="POST">
                 <div className="mt-4">
                     <input name="address" value={address} onChange={e => setAddress(e.target.value)} className="bg-gray-100 w-full rounded-lg px-4 py-2 mb-2" type="text" placeholder="Street address, number"/>
                     <input name="city" value={city} onChange={e => setCity(e.target.value)} className="bg-gray-100 w-full rounded-lg px-4 py-2 mb-2" type="text" placeholder="City and postal code"/>
@@ -104,7 +104,7 @@ export default function CheckoutPage(){
                 </div>         
                 <input type="hidden" name='products' value={selectedProducts.join(',')} />
                 <button type="submit" role="link" className="bg-emerald-500 px-5 py-2 rounded-xl text-white w-full my-4 shadow-emerald-300 shadow-lg">Pay ${total}</button>
-                </form>
+            </form>)}
         </Layout>
     )
 }
