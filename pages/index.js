@@ -8,6 +8,7 @@ export default function Home() {
   const [productsInfo, setProductsInfo] = useState([]);
   const [phrase, setPhrase] = useState('')
   const categoriesNames = [...new Set(productsInfo.map(p => p.category))];
+  
   useEffect(() => {
     fetch('https://my-ecommerce-alpha.vercel.app/api/products')
     .then(response => response.json())

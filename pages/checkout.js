@@ -10,6 +10,7 @@ export default function CheckoutPage(){
     const [city, setCity] = useState('')
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
+
     useEffect(() => {
         const uniqIds = [...new Set(selectedProducts)]
         fetch('https://my-ecommerce-alpha.vercel.app/api/products?ids='+uniqIds.join(','))
@@ -19,6 +20,7 @@ export default function CheckoutPage(){
             return() => {}
     }, [selectedProducts])
     // console.log(productsInfos)
+    
     function addItem(id){
         setSelectedProducts(prev => [...prev,id]);
     }
