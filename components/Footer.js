@@ -18,6 +18,7 @@ export default function Footer(){
         path === '/' ? setHomeStyle(style.active) : setHomeStyle(style.inactive)
         path === '/checkout' ? setCheckoutStyle(style.active) : setCheckoutStyle(style.inactive)
         console.log("setting style")
+        return() => {}
     },[path])
 
     return(

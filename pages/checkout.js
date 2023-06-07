@@ -16,6 +16,7 @@ export default function CheckoutPage(){
             .then(response => response.json())
             .then(json => setProductsInfos(json));
             console.log("product changed!")
+            return() => {}
     }, [selectedProducts])
     // console.log(productsInfos)
     function addItem(id){

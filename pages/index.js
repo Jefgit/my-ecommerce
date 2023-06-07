@@ -12,6 +12,7 @@ export default function Home() {
     fetch('https://my-ecommerce-alpha.vercel.app/api/products')
     .then(response => response.json())
     .then(json => setProductsInfo(json))
+    return() => {}
   }, []);
 
   console.log(productsInfo)
