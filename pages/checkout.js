@@ -2,14 +2,29 @@ import Layout from "@/components/Layout";
 import { ProductsContext } from "@/components/ProductsContext";
 import { useContext, useEffect, useState } from "react";
 import Image from "next/image";
+import {useForm} from "react-hook-form";
+import axios from "axios";
 
 export default function CheckoutPage(){
     const {selectedProducts, setSelectedProducts} = useContext(ProductsContext);
     const [productsInfos, setProductsInfos] = useState([]);
-    const [address, setAddress] = useState('')
-    const [city, setCity] = useState('')
-    const [name, setName] = useState('')
-    const [email, setEmail] = useState('')
+    const {register, handleSubmit, formState: {errors}} = useForm();
+    
+    async function onSubmit(values){
+
+        try{
+            const response = await axios({
+                withCredentials: true,
+                url:"/api/checkout",
+                method:"POST",
+                data : values
+            })
+            console.log("Response back", response)
+            window.location.assign(response.data)
+        } catch (error){
+            console.log(error)
+        }
+    }
 
     useEffect(() => {
         const uniqIds = [...new Set(selectedProducts)]
@@ -19,8 +34,7 @@ export default function CheckoutPage(){
             console.log("product changed!")
             return() => {}
     }, [selectedProducts])
-    // console.log(productsInfos)
-    
+
     function addItem(id){
         setSelectedProducts(prev => [...prev,id]);
     }
@@ -84,12 +98,28 @@ export default function CheckoutPage(){
                     </div>
                 </div>
             )})}
-            {subtotal != 0 && (<form action="/api/checkout" method="POST">
+            {subtotal != 0 && (<form onSubmit={handleSubmit(onSubmit)} >
                 <div className="mt-4">
-                    <input name="address" value={address} onChange={e => setAddress(e.target.value)} className="bg-gray-100 w-full rounded-lg px-4 py-2 mb-2" type="text" placeholder="Street address, number"/>
-                    <input name="city" value={city} onChange={e => setCity(e.target.value)} className="bg-gray-100 w-full rounded-lg px-4 py-2 mb-2" type="text" placeholder="City and postal code"/>
-                    <input name="name" value={name} onChange={e => setName(e.target.value)} className="bg-gray-100 w-full rounded-lg px-4 py-2 mb-2" type="text" placeholder="Your name"/>
-                    <input name="email" value={email} onChange={e => setEmail(e.target.value)} className="bg-gray-100 w-full rounded-lg px-4 py-2 mb-2" type="email" placeholder="Email address"/>
+                    {errors.address && <span className="text-sm text-red-700">Adress is required</span>}
+                    <input 
+                        className="bg-gray-100 w-full rounded-lg px-4 py-2 mb-2" type="text" placeholder="Street address, number"
+                        {...register("address", {required:true})}
+                    />
+                    {errors.city && <span className="text-sm text-red-700">City is required</span>}
+                    <input 
+                        className="bg-gray-100 w-full rounded-lg px-4 py-2 mb-2" type="text" placeholder="City and postal code"
+                        {...register("city", {required:true})}
+                    />
+                    {errors.name && <span className="text-sm text-red-700">Name is required</span>}
+                    <input 
+                        className="bg-gray-100 w-full rounded-lg px-4 py-2 mb-2" type="text" placeholder="Your name"
+                        {...register("name", {required:true})}
+                    />
+                    {errors.email && <span className="text-sm text-red-700">Email is required</span>}
+                    <input 
+                        className="bg-gray-100 w-full rounded-lg px-4 py-2 mb-2" type="email" placeholder="Email address"
+                        {...register("email", {required:true})}
+                    />
                 </div>
                 <div className="mt-4">
                     <div className="flex my-3">
@@ -105,7 +135,7 @@ export default function CheckoutPage(){
                         <h3 className="font-bold">${total}</h3>
                     </div>  
                 </div>         
-                <input type="hidden" name='products' value={selectedProducts.join(',')} />
+                <input type="hidden" name='products' value={selectedProducts.join(',')} {...register("products")} />
                 <button type="submit" role="link" className="bg-emerald-500 px-5 py-2 rounded-xl text-white w-full my-4 shadow-emerald-300 shadow-lg">Pay ${total}</button>
             </form>)}
         </Layout>

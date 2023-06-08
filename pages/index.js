@@ -1,7 +1,5 @@
 import Product from "@/components/product";
-// import { initMongoose } from "@/lib/mongoose";
 import { useEffect, useState } from "react"
-// import { findAllProducts } from "./api/products";
 import Layout from "@/components/Layout";
 
 export default function Home() {
@@ -55,13 +53,3 @@ export default function Home() {
     </Layout>
   )
 }
-
-// export async function getServerSideProps(){
-//   await initMongoose();
-//   const products = await findAllProducts();
-//   return{
-//     props: {
-//       products:JSON.parse(JSON.stringify(products)),
-//     },
-//   }
-// }

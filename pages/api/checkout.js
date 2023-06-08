@@ -11,7 +11,8 @@ export default async function handler(req,res) {
         return;
     }
 
-    const {email, name, address,city} = req.body;
+    console.log(req.body)
+    const {email, name, address, city} = req.body;
     const productsIds = req.body.products.split(',');
     const uniqIds = [...new Set(productsIds)];
     const products = await Product.find({_id:{$in:uniqIds}}).exec();    
@@ -49,5 +50,5 @@ export default async function handler(req,res) {
         cancel_url: `${req.headers.origin}/?canceled=true`,
         metadata: {orderId:order._id.toString()},
     });
-      res.redirect(303, session.url);
+      res.status(200).json(session.url)
 } 
